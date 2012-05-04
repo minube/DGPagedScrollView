@@ -78,7 +78,7 @@
 }
 - (void) addPage:(UIView *)view atIndex:(NSUInteger)index {
     [view retain];
-    LogFrame(view.frame);
+    //LogFrame(view.frame);
     NSMutableArray *newViews=[self.views mutableCopy];
     if(index<[newViews count]){
         id previousObject =[newViews objectAtIndex:index];
@@ -88,7 +88,7 @@
     frame.origin.x+=(index * frame.size.width)+((index+1)*(2*self.spaceBetweenPages))-self.spaceBetweenPages;
     frame.origin.y=0;
     view.frame=frame;
-    LogFrame(self.visibleFrame);
+    //LogFrame(self.visibleFrame);
     [newViews insertObject:view atIndex:index];
     self.views=[newViews autorelease];
     [self insertSubview:view belowSubview:self.pageControl];
