@@ -83,7 +83,12 @@ typedef enum {
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+- (BOOL)shouldAutorotate {
+    return [self shouldAutorotateToInterfaceOrientation:self.interfaceOrientation];
+}
+- (NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
 - (void)dealloc {
     [pageControl release];
     [zoomedView release];
