@@ -11,9 +11,9 @@
 @interface DGScrollView : UIScrollView{
 }
 @property (nonatomic, assign) NSUInteger page; 
-@property (nonatomic, retain) NSArray* views;
-@property (nonatomic, retain) NSArray* contentViews;
-@property (retain,nonatomic) UIPageControl* pageControl;
+@property (nonatomic, strong) NSArray* views;
+@property (nonatomic, strong) NSArray* contentViews;
+@property (strong,nonatomic) UIPageControl* pageControl;
 @property (nonatomic) BOOL pageControlHidden;
 @property (nonatomic) float spaceBetweenPages;
 - (id)initWithFrame:(CGRect)frame andSpaceBetweenPages:(float)space;

@@ -16,7 +16,7 @@ typedef enum {
 @interface DGPagedViewController(){
     
 }
-@property (retain,nonatomic) UIView *zoomedView;
+@property (strong,nonatomic) UIView *zoomedView;
 @property (nonatomic) NSInteger actualPage;
 //- (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView;
 @end
@@ -56,7 +56,7 @@ typedef enum {
     self.view.frame=viewFrame;
     viewFrame.origin.x=0;
     viewFrame.origin.y=0;
-    self.scrollView=[[[DGScrollView alloc] initWithFrame:viewFrame andSpaceBetweenPages:2]autorelease];    
+    self.scrollView=[[DGScrollView alloc] initWithFrame:viewFrame andSpaceBetweenPages:2];    
     self.scrollView.delegate=self;
     self.scrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.scrollView.minimumZoomScale = self.scrollView.frame.size.width / self.scrollView.frame.size.width;
@@ -88,12 +88,6 @@ typedef enum {
 }
 - (NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
-}
-- (void)dealloc {
-    [pageControl release];
-    [zoomedView release];
-    [scrollView release];
-    [super dealloc];
 }
 
 #pragma mark - UIScrollViewDelegate Methods
@@ -171,9 +165,12 @@ typedef enum {
     
     switch (animation) {
         case DGScrollViewReloadDataAnimationNone:
+        {
             [self reloadData];
+        }
             break;
         case DGScrollViewReloadDataAnimationFadeOutIn:
+        {
             [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.scrollView.alpha = 0.0f;
             } completion:^(BOOL finished) {
@@ -184,9 +181,13 @@ typedef enum {
                     } completion:NULL];
                 }
             }];
+        }
             break;
             
         default:
+        {
+            
+        }
             break;
     }
     

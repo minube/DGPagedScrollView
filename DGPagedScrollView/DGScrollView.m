@@ -42,7 +42,7 @@
         //Page control
         self.currentPage=0;
         CGRect frame = CGRectMake(0, 0, self.frame.size.width, kPageControlHeight);
-        self.pageControl = [[[UIPageControl alloc] initWithFrame:frame]autorelease];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:frame];
         [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         self.pageControl.defersCurrentPageDisplay = YES;
         self.pageControl.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin);
@@ -64,7 +64,7 @@
         //Page control
         self.currentPage=0;
         CGRect frame = CGRectMake(0, 0, self.frame.size.width, kPageControlHeight);
-        self.pageControl = [[[UIPageControl alloc] initWithFrame:frame]autorelease];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:frame];
         [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         self.pageControl.defersCurrentPageDisplay = YES;
         self.pageControl.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin);
@@ -77,7 +77,6 @@
     [self addPage:view atIndex:[self.views count]];
 }
 - (void) addPage:(UIView *)view atIndex:(NSUInteger)index {
-    [view retain];
     NSMutableArray *newViews=[self.views mutableCopy];
     if(index<[newViews count]){
         id previousObject =[newViews objectAtIndex:index];
@@ -88,9 +87,8 @@
     frame.origin.y=0;
     view.frame=frame;
     [newViews insertObject:view atIndex:index];
-    self.views=[newViews autorelease];
+    self.views=newViews;
     [self insertSubview:view belowSubview:self.pageControl];
-    [view release];
     //NSLog(@"Add %d %@",index,self.views);
     [self updatePageControlPosition];
 }
@@ -99,16 +97,14 @@
 }
 - (void)removePageAtIndex:(NSUInteger)index {
     if(index<[self.views count]){
-        UIView *viewToRemove=[[self.views objectAtIndex:index]retain];
+        UIView *viewToRemove=[self.views objectAtIndex:index];
         NSMutableArray *newViews=[self.views mutableCopy];
         [newViews removeObject:viewToRemove]; 
         if(index!=([self.views count]-1)){
             [newViews insertObject:[self dummyViewWithFrame:viewToRemove.frame] atIndex:index];
         }
         self.views=newViews;
-        [newViews release];
         [self removePage:viewToRemove];
-        [viewToRemove release];
         //NSLog(@"Remove %d %@",index,self.views);
         [self updatePageControlPosition];
     }
@@ -116,7 +112,7 @@
 - (UIView *)dummyViewWithFrame:(CGRect)frame{
     UIView *dummyView=[[UIView alloc]initWithFrame:frame];
     dummyView.tag=1;
-    return [dummyView autorelease];
+    return dummyView;
 }
 - (UIView *)pageAtIndex:(NSUInteger)index {
     if([self.views count]>0)
@@ -260,7 +256,7 @@
         frame.origin.y=0;
         [newArray insertObject:[self dummyViewWithFrame:frame] atIndex:i];
     }
-    self.views=[newArray autorelease];
+    self.views=newArray;
     UIEdgeInsets inset = self.scrollIndicatorInsets;
     CGFloat heightInset = inset.top + inset.bottom;
     self.contentSize = CGSizeMake(self.frame.size.width * [self.views count], self.frame.size.height - heightInset);
@@ -273,11 +269,6 @@
 
 #pragma mark Dealloc
 
-- (void)dealloc {    
-    [views release];
-    [pageControl release];
-    [super dealloc];
-}
 
 
 @end
