@@ -79,13 +79,6 @@ typedef enum {
     [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-- (BOOL)shouldAutorotate {
-    return [self shouldAutorotateToInterfaceOrientation:self.interfaceOrientation];
-}
 - (NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
 }
