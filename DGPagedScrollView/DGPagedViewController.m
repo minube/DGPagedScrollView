@@ -205,4 +205,8 @@ typedef enum {
     [self.scrollView setPage:page animated:animated];
 }
 
+#pragma mark - Memory Management
+- (void)dealloc{
+    self.scrollView.delegate=nil;
+}
 @end
