@@ -189,18 +189,18 @@
     }else {
         appearingPage=floor(fractionalPage);
     }
-    if((int)fractionalPage==fractionalPage){
-        self.currentPage=(int)fractionalPage;
+    if((NSInteger)fractionalPage==fractionalPage){
+        self.currentPage=(NSInteger)fractionalPage;
         [self updatePageControlPosition];
     }
     NSInteger totalPages=[(id <DGScrollViewDataSource>)self.delegate numberOfPagesInPagedView:(id <DGScrollViewDelegate>)self.delegate];
     if(totalPages>0 && appearingPage>=0 && appearingPage<totalPages){
-        [self checkAndInsertPageAtIndex:appearingPage withPageOffset:(fractionalPage-((int)fractionalPage))];
+        [self checkAndInsertPageAtIndex:appearingPage withPageOffset:(fractionalPage-((NSInteger)fractionalPage))];
         if(actualPage<=appearingPage && (appearingPage+1)<totalPages){
-            [self checkAndInsertPageAtIndex:(appearingPage+1) withPageOffset:(fractionalPage-((int)fractionalPage))];
+            [self checkAndInsertPageAtIndex:(appearingPage+1) withPageOffset:(fractionalPage-((NSInteger)fractionalPage))];
         }
         if(actualPage>appearingPage && (appearingPage-1)>=0){
-            [self checkAndInsertPageAtIndex:(appearingPage-1) withPageOffset:(fractionalPage-((int)fractionalPage))];
+            [self checkAndInsertPageAtIndex:(appearingPage-1) withPageOffset:(fractionalPage-((NSInteger)fractionalPage))];
         }
         UIEdgeInsets inset = self.scrollIndicatorInsets;
         CGFloat heightInset = inset.top + inset.bottom;
